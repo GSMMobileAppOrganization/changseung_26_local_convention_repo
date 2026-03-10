@@ -2,7 +2,6 @@ import 'package:daily_tarot_poc_app_1/app_controller.dart';
 import 'package:daily_tarot_poc_app_1/main.dart';
 import 'package:daily_tarot_poc_app_1/screens/card_result_screen.dart';
 import 'package:daily_tarot_poc_app_1/widgets/background_2.dart';
-import 'package:daily_tarot_poc_app_1/widgets/button_2.dart';
 import 'package:daily_tarot_poc_app_1/widgets/card_widget.dart';
 import 'package:daily_tarot_poc_app_1/widgets/logo_widget_2.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +14,8 @@ class LoverScreen extends StatefulWidget {
 }
 
 class _LoverScreenState extends State<LoverScreen> {
+  int curIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Background2(
@@ -59,24 +60,32 @@ class _LoverScreenState extends State<LoverScreen> {
         perspective: 0.001,
         diameterRatio: 15,
         itemExtent: 150,
+        onSelectedItemChanged: (value) {
+          setState(() {
+            curIndex = value;
+          });
+        },
         children: List.generate(
           9,
-          (index) => RotatedBox(
-            quarterTurns: 1,
-            child: GestureDetector(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CardResultScreen1(
-                    card: appController.getRandomCard(
-                      appController.loveCardList,
+          (index) => Transform.rotate(
+            angle: (curIndex - index) * 0.08,
+            child: RotatedBox(
+              quarterTurns: 1,
+              child: GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CardResultScreen1(
+                      card: appController.getRandomCard(
+                        appController.loveCardList,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              child: CardWidget(
-                path: "assets/images/tarot_card_back.png",
-                width: 200,
+                child: CardWidget(
+                  path: "assets/images/tarot_card_back.png",
+                  width: 200,
+                ),
               ),
             ),
           ),

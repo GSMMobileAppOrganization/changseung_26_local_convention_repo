@@ -12,7 +12,7 @@ void main() async {
   runApp(
     MaterialApp(
       theme: ThemeData(fontFamily: font1),
-      home: HomeScreen(),
+      home: OnboardingScreen(),
     ),
   );
 }

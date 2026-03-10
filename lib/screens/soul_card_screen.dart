@@ -65,10 +65,6 @@ class _SoulCardScreenState extends State<SoulCardScreen> {
                     appController.moonCount -= 10;
                     appController.birthDate = date;
 
-
-                    appController.soulCardList.forEach((element) => print("${element.number}"),);
-                    print(appController.birthDate);
-
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => MySoulCardScreen1(),
@@ -201,7 +197,10 @@ class _SoulCardScreenState extends State<SoulCardScreen> {
                       ),
                       Flexible(
                         child: _scrollList(
-                          List.generate(now.month, (index) => index + 1),
+                          List.generate(
+                            now.year != tempDate.year ? 12 : now.month,
+                            (index) => index + 1,
+                          ),
                           (value) {
                             tempDate = DateTime(
                               tempDate.year,
