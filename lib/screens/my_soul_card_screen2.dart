@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:daily_tarot_poc_app_1/app_controller.dart';
 import 'package:daily_tarot_poc_app_1/main.dart';
-import 'package:daily_tarot_poc_app_1/models/soul_card_model.dart';
+import 'package:daily_tarot_poc_app_1/models/card_model.dart';
 import 'package:daily_tarot_poc_app_1/screens/home_screen.dart';
 import 'package:daily_tarot_poc_app_1/widgets/card_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class MySoulCardScreen2 extends StatefulWidget {
 }
 
 class _MySoulCardScreen2State extends State<MySoulCardScreen2> {
-  final SoulCardModel card = appController.getSoulCard();
+  final CardModel card = appController.getSoulCard();
 
   @override
   Widget build(BuildContext context) {

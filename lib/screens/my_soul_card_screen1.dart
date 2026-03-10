@@ -1,5 +1,5 @@
 import 'package:daily_tarot_poc_app_1/app_controller.dart';
-import 'package:daily_tarot_poc_app_1/models/soul_card_model.dart';
+import 'package:daily_tarot_poc_app_1/models/card_model.dart';
 import 'package:daily_tarot_poc_app_1/screens/my_soul_card_screen2.dart';
 import 'package:daily_tarot_poc_app_1/widgets/card_widget.dart';
 import 'package:daily_tarot_poc_app_1/widgets/logo_widget_2.dart';
@@ -13,7 +13,7 @@ class MySoulCardScreen1 extends StatefulWidget {
 }
 
 class _MySoulCardScreen1State extends State<MySoulCardScreen1> {
-  final SoulCardModel card = appController.getSoulCard();
+  final CardModel card = appController.getSoulCard();
 
   @override
   void initState() {

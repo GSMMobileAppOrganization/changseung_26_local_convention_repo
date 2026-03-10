@@ -1,17 +1,17 @@
-class SoulCardModel {
+class CardModel {
   final int number;
   final String name;
   final String storytelling;
   final String image;
 
-  SoulCardModel({
+  CardModel({
     required this.number,
     required this.name,
     required this.storytelling,
     required this.image,
   });
 
-  factory SoulCardModel.fromJson(Map json) => SoulCardModel(
+  factory CardModel.fromJson(Map json) => CardModel(
     number: json["number"],
     name: json["name"],
     storytelling: json["storytelling"],

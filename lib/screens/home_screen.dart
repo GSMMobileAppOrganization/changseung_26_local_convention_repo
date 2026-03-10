@@ -1,5 +1,7 @@
 import 'package:daily_tarot_poc_app_1/app_controller.dart';
 import 'package:daily_tarot_poc_app_1/main.dart';
+import 'package:daily_tarot_poc_app_1/screens/fruit_screen.dart';
+import 'package:daily_tarot_poc_app_1/screens/lover_screen.dart';
 import 'package:daily_tarot_poc_app_1/screens/moon_charge_screen.dart';
 import 'package:daily_tarot_poc_app_1/screens/soul_card_screen.dart';
 import 'package:daily_tarot_poc_app_1/widgets/background_2.dart';
@@ -97,7 +99,15 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       _image(
                         "assets/images/love_tarot.png",
-                        () => showPopup(),
+                        () {
+                          //showPopup();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoverScreen(),
+                            ),
+                          );
+                        },
                         _text(
                           "인연 타로",
                           "지금은 힘들지만 그래도,\n그 사람과 인연이 될 수 있을까?",
@@ -108,7 +118,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       _image(
                         "assets/images/fruit_tarot.png",
-                        () => showPopup(),
+                        () {
+                          //showPopup();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FruitScreen(),
+                            ),
+                          );
+                        },
                         _text(
                           "열매 타로",
                           "지금 생각하고 있는 일은\n어떤 결과로 이어질까?",
@@ -131,7 +149,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   () {
                     print(":dsfdsf");
                     appController.moveUrl("https://ko.wikipedia.org/wiki/타로");
-                  },_text(
+                  },
+                  _text(
                     "당신만을 위한 상담",
                     "당신을 위해 모인 ‘데일리마스터’와\n직접 이야기를 나누어 보세요.",
                     align: .topLeft,

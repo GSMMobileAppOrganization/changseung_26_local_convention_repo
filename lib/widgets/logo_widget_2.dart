@@ -7,35 +7,29 @@ class LogoWidget2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 82,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: Align(
-              alignment: .topCenter,
-              child: Image.asset(
-                "assets/images/graphic.png",
-                fit: .fitWidth,
-                width: 64,
-              ),
+    return Column(
+      mainAxisSize: .min,
+      children: [
+        SizedBox(
+          height: 42,
+          child: ClipRect(
+            child: Image.asset(
+              "assets/images/graphic.png",
+              fit: .fitWidth,
+              width: 62,
             ),
           ),
-          Positioned.fill(
-            child: Align(
-              alignment: .bottomCenter,
-              child: Text(
-                text,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: .bold,
-                  fontSize: 18,
-                ),
-              ),
-            ),
+        ),
+        Text(
+          text,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: .bold,
+            fontSize: 18,
           ),
-        ],
-      ),
+          textAlign: .center,
+        ),
+      ],
     );
   }
 }
