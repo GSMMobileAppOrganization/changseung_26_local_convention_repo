@@ -7,11 +7,13 @@ class Button2 extends StatelessWidget {
     required this.tap,
     required this.text,
     this.reverse = false,
+    this.hasIcon = true,
   });
 
   final VoidCallback tap;
   final String text;
   final bool reverse;
+  final bool hasIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +23,8 @@ class Button2 extends StatelessWidget {
         surfaceTintColor: .all(Colors.white),
         padding: .all(
           .only(
-            right: reverse ? 22 : 12,
-            left: !reverse ? 22 : 12,
+            right: reverse ? 32 : 22,
+            left: !reverse ? 32 : 22,
             top: 12,
             bottom: 12,
           ),
@@ -40,12 +42,14 @@ class Button2 extends StatelessWidget {
     style: TextStyle(color: Colors.white, fontWeight: .bold, fontSize: 18),
   );
 
-  Widget _icon() => Transform.flip(
-    flipX: !reverse,
-    child: SvgPicture.asset(
-      "assets/icons/arrow_back.svg",
-      fit: .fitWidth,
-      width: 18,
-    ),
-  );
+  Widget _icon() => hasIcon
+      ? Transform.flip(
+          flipX: !reverse,
+          child: SvgPicture.asset(
+            "assets/icons/arrow_back.svg",
+            fit: .fitWidth,
+            width: 18,
+          ),
+        )
+      : SizedBox.shrink();
 }

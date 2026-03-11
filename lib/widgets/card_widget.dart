@@ -13,7 +13,7 @@ class CardWidget extends StatelessWidget {
       width: width,
       height: width * 1.5,
       decoration: BoxDecoration(
-        borderRadius: .circular(18),
+        borderRadius: .circular(8),
         image: DecorationImage(image: AssetImage(path), fit: .fill),
       ),
     );

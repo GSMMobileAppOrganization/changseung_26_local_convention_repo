@@ -70,6 +70,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               FadeTransition(
                 opacity: _ani3,
                 child: Button1(
+                  title: "시작하기",
                   tap: () => appController.move(context, NameInputScreen()),
                 ),
               ),

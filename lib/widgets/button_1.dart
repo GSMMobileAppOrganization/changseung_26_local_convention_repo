@@ -4,11 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Button1 extends StatelessWidget {
-  const Button1({super.key, required this.tap, this.ver2 = false});
+  const Button1({
+    super.key,
+    required this.tap,
+    this.ver2 = false,
+    required this.title,
+    this.hasIcon = true,
+  });
 
   final VoidCallback tap;
+  final String title;
 
   final bool ver2;
+  final bool hasIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -24,32 +32,41 @@ class Button1 extends StatelessWidget {
           ),
         ),
         padding: .symmetric(horizontal: 32, vertical: 14),
-        child: Row(
-          mainAxisSize: .min,
-          children: [
-            if (ver2) ...{MoonWidget(size: 26)},
+        child: hasIcon
+            ? Row(
+                mainAxisSize: .min,
+                children: [
+                  if (ver2) ...{MoonWidget(size: 26)},
 
-            Text(
-              ver2 ? "달 10개로 소울카드 찾기" : "시작하기",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: .bold,
-                fontSize: 18,
-              ),
-            ),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: .bold,
+                      fontSize: 18,
+                    ),
+                  ),
 
-            if (!ver2) ...{
-              Transform.flip(
-                flipX: true,
-                child: SvgPicture.asset(
-                  'assets/icons/arrow_back.svg',
-                  fit: .fitWidth,
-                  width: 24,
+                  if (!ver2) ...{
+                    Transform.flip(
+                      flipX: true,
+                      child: SvgPicture.asset(
+                        'assets/icons/arrow_back.svg',
+                        fit: .fitWidth,
+                        width: 24,
+                      ),
+                    ),
+                  },
+                ],
+              )
+            : Text(
+                title,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: .bold,
+                  fontSize: 18,
                 ),
               ),
-            },
-          ],
-        ),
       ),
     );
   }

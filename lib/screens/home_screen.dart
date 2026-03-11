@@ -1,5 +1,7 @@
 import 'package:daily_tarot_poc_app_2/app_controller.dart';
 import 'package:daily_tarot_poc_app_2/main.dart';
+import 'package:daily_tarot_poc_app_2/screens/fruit_screen.dart';
+import 'package:daily_tarot_poc_app_2/screens/love_screen.dart';
 import 'package:daily_tarot_poc_app_2/screens/moon_charge_screen.dart';
 import 'package:daily_tarot_poc_app_2/screens/soul_card_screen.dart';
 import 'package:daily_tarot_poc_app_2/widgets/background2.dart';
@@ -79,10 +81,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               .start,
                             ),
                           ),
-                          () => appController.showSnack(
+                          () => appController.move(context, LoveScreen()) /*appController.showSnack(
                             context,
                             "아직 개발중인 서비스 입니다.",
-                          ),
+                          ),*/
                         ),
                       ),
                       SizedBox.square(
@@ -98,10 +100,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               .start,
                             ),
                           ),
-                          () => appController.showSnack(
+                          () => appController.move(context, FruitScreen()) /*appController.showSnack(
                             context,
                             "아직 개발중인 서비스 입니다.",
-                          ),
+                          ),*/
                         ),
                       ),
                     ],

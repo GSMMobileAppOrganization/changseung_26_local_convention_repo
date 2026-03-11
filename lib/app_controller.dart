@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:daily_tarot_poc_app_2/main.dart';
 import 'package:daily_tarot_poc_app_2/models/soul_card_model.dart';
@@ -21,6 +22,8 @@ class AppController {
   int moonCount = 0;
 
   late final List<SoulCardModel> soulCardList;
+  late final List<SoulCardModel> fruitCardList;
+  late final List<SoulCardModel> loveCardList;
 
   Future<void> move(BuildContext context, Widget page) async =>
       await Navigator.push(
@@ -65,7 +68,7 @@ class AppController {
 
   Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
-    await loadSoulCardList();
+    await loadCardList();
   }
 
   void loadMoonCount() => moonCount = prefs.getInt(moonKey) ?? 0;
@@ -91,12 +94,28 @@ class AppController {
         ),
       );
 
-  Future<void> loadSoulCardList() async {
-    final res = await rootBundle.loadString("assets/data/soul_cards_data.json");
+  Future<void> loadCardList() async {
+    final res1 = await rootBundle.loadString(
+      "assets/data/soul_cards_data.json",
+    );
+    final res2 = await rootBundle.loadString(
+      "assets/data/fruit_tarot_cards_data.json",
+    );
+    final res3 = await rootBundle.loadString(
+      "assets/data/loves_tarot_cards_data.json",
+    );
 
-    final date = jsonDecode(res);
+    final date1 = jsonDecode(res1);
+    final date2 = jsonDecode(res2);
+    final date3 = jsonDecode(res3);
 
-    soulCardList = (date as List)
+    soulCardList = (date1 as List)
+        .map((e) => SoulCardModel.fromJson(e))
+        .toList();
+    fruitCardList = (date2 as List)
+        .map((e) => SoulCardModel.fromJson(e))
+        .toList();
+    loveCardList = (date3 as List)
         .map((e) => SoulCardModel.fromJson(e))
         .toList();
   }
@@ -117,10 +136,13 @@ class AppController {
         }
       }
     }
-
-    print(total);
-
     return soulCardList.where((card) => card.number == total).first;
+  }
+
+  SoulCardModel getRandomCard(List<SoulCardModel> list) {
+    final n = Random().nextInt(list.length - 1) + 1;
+    print(n);
+    return list.where((e) => e.number == n).first;
   }
 
   void moveUrl(String url) => launchUrl(Uri.parse(url));

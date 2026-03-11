@@ -58,6 +58,7 @@ class _SoulCardScreenState extends State<SoulCardScreen> {
 
           Button1(
             ver2: true,
+            title: "달 10개로 시작하기",
             tap: () {
               if (date != null && appController.moonCount >= 10) {
                 appController.birthDate = date;

@@ -93,6 +93,7 @@ class ConfirmInfoScreen extends StatelessWidget {
 
               SizedBox(height: 64),
               Button1(
+                title: "시작하기",
                 tap: () => appController.moveRemove(context, HomeScreen()),
               ),
 

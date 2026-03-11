@@ -8,53 +8,41 @@ class LogoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: (ver2 ? 100 : 160) - (title == null ? 60 : 0),
-      child: Stack(
-        children: [
-          if (!ver2) ...{
-            Positioned.fill(
-              child: Align(
-                alignment: .topCenter,
-                child: Image.asset(
-                  "assets/images/Daily Tarot.png",
-                  fit: .fitWidth,
-                  width: 200,
-                ),
-              ),
-            ),
-          },
-          Positioned.fill(
-            child: Align(
-              alignment: ver2
-                  ? .topCenter
-                  : title == null
-                  ? .bottomCenter
-                  : .center,
-              child: Image.asset(
-                "assets/images/graphic.png",
-                fit: .fitWidth,
-                width: 64,
-              ),
+    return Column(
+      mainAxisSize: .min,
+      children: [
+        if (!ver2) ...{
+          Image.asset(
+            "assets/images/Daily Tarot.png",
+            fit: .fitWidth,
+            width: 200,
+          ),
+        },
+
+        SizedBox(
+          height: 38,
+          child: ClipRect(
+            clipBehavior: .hardEdge,
+            child: Image.asset(
+              "assets/images/graphic.png",
+              fit: .fitWidth,
+              width: 64,
             ),
           ),
-          if (title != null) ...{
-            Positioned.fill(
-              child: Align(
-                alignment: Alignment(0, 0.6),
-                child: Text(
-                  title!,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: .w800,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
+        ),
+
+        if (title != null) ...{
+          Text(
+            title!,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: .w800,
+              fontSize: 18,
             ),
-          },
-        ],
-      ),
+            textAlign: .center,
+          ),
+        },
+      ],
     );
   }
 }
