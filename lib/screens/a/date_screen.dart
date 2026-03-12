@@ -45,7 +45,7 @@ class _DateScreenState extends State<DateScreen> {
                     if (curDate.isAfter(DateTime.now())) {
                       appController.showSnack(
                         context,
-                        "오늘 이후의 날짜는 선택할 수 없습니다.",
+                        "오늘을 초과하는 날짜는 선택할 수 없습니다.",
                       );
                       return;
                     }

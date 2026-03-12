@@ -1,5 +1,6 @@
 import 'package:daily_tarot_poc_app_5/app_controller.dart';
 import 'package:daily_tarot_poc_app_5/screens/a/onboarding_screen.dart';
+import 'package:daily_tarot_poc_app_5/screens/b/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -7,10 +8,12 @@ void main() async {
 
   await appController.init();
 
+  appController.loadMoon();
+
   runApp(
     MaterialApp(
       theme: ThemeData(fontFamily: f1),
-      home: OnboardingScreen(),
+      home: HomeScreen(),
     ),
   );
 }
@@ -18,6 +21,7 @@ void main() async {
 const Color deepPurple = Color(0xff270C41);
 const Color purple = Color(0xff3B1361);
 const Color gradY = Color(0xff816379);
+const Color yellow = Color(0xffF8D602);
 
 const String f1 = "f1";
 const String f2 = "f2";
