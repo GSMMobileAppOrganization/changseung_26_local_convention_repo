@@ -68,6 +68,8 @@ flutter:
     - assets/images/
     - assets/Nanum/
     - assets/static/
+    - assets/data/
+    - assets/images/tarot_cards/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

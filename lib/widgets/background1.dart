@@ -19,7 +19,7 @@ class Background1 extends StatelessWidget {
             end: .bottomRight,
           ),
         ),
-        child: Stack(children: [moon(160), cloud(), if (child != null) child!]),
+        child: Stack(children: [moon(160), cloud(), ?child]),
       ),
     );
   }

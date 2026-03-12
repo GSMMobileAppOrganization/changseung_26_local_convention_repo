@@ -1,21 +1,75 @@
 import 'package:daily_tarot_poc_app_4/app_controller.dart';
 import 'package:daily_tarot_poc_app_4/main.dart';
+import 'package:daily_tarot_poc_app_4/screens/b/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 /*Widget () =>*/
 
-Widget outButton(String m, VoidCallback tap, {Alignment align = .centerLeft}) =>
-    GestureDetector(
-      onTap: tap,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: .circular(32),
-          border: .all(color: Colors.white),
-        ),
-        padding: .symmetric(horizontal: 22, vertical: 16),
-        alignment: align,
-        child: Text(
+Widget closeButton(BuildContext context) => GestureDetector(
+  onTap: () => appController.moveReset(context, HomeScreen()),
+  child: Container(
+    decoration: BoxDecoration(
+      shape: .circle,
+      border: .all(color: Colors.white, width: .6),
+    ),
+    padding: .all(8),
+    child: Icon(Icons.close, color: Colors.white, size: 42),
+  ),
+);
+
+Widget cardWidget(String path, double width, {double radius = 16}) => Container(
+  width: width,
+  height: width * 1.5,
+  clipBehavior: .hardEdge,
+  decoration: BoxDecoration(borderRadius: .circular(radius)),
+  child: Image.asset(path, fit: .fitWidth),
+);
+
+Widget backButton(BuildContext context) => Align(
+  alignment: .topLeft,
+  child: GestureDetector(
+    onTap: () => appController.moveReset(context, HomeScreen()),
+    child: Padding(padding: .all(12), child: back(28)),
+  ),
+);
+
+Widget moonCount(double size) => Row(
+  mainAxisSize: .min,
+  spacing: 6,
+  children: [
+    moon(size * 1.6),
+    Text(
+      "${appController.moon}",
+      style: TextStyle(
+        color: Colors.white,
+        fontFamily: f2,
+        fontWeight: .bold,
+        fontSize: size,
+      ),
+    ),
+  ],
+);
+
+Widget outButton(
+  String m,
+  VoidCallback tap, {
+  Alignment align = .centerLeft,
+  bool hasIcon = false,
+}) => GestureDetector(
+  onTap: tap,
+  child: Container(
+    decoration: BoxDecoration(
+      borderRadius: .circular(32),
+      border: .all(color: Colors.white),
+    ),
+    padding: .symmetric(horizontal: 22, vertical: 16),
+    alignment: align,
+    child: Row(
+      mainAxisSize: .min,
+      spacing: 8,
+      children: [
+        Text(
           m,
           style: TextStyle(
             color: Colors.white,
@@ -23,8 +77,11 @@ Widget outButton(String m, VoidCallback tap, {Alignment align = .centerLeft}) =>
             fontFamily: f2,
           ),
         ),
-      ),
-    );
+        if (hasIcon) Transform.flip(flipX: true, child: back(18)),
+      ],
+    ),
+  ),
+);
 
 Widget wheelList(
   List<int> list,
@@ -47,13 +104,14 @@ Widget wheelList(
                     : .none,
               ),
             ),
-            alignment: .center,
+            padding: .symmetric(vertical: 18),
             child: Text(
               format != null ? appController.numberFormat(format, e) : "$e",
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: .bold,
-                fontSize: 18,
+                fontSize: 20,
+                fontFamily: f2,
               ),
             ),
           ),
@@ -87,6 +145,7 @@ Widget genderButton(
 );
 
 Widget cloud() => Stack(
+  fit: .loose,
   children: [
     Positioned(
       bottom: 48,
@@ -146,6 +205,7 @@ Widget button1(
   VoidCallback tap, {
   double radius = 2,
   bool hasIcon = true,
+  bool isMoon = false,
   bool isBack = true,
 }) => GestureDetector(
   onTap: tap,
@@ -163,8 +223,10 @@ Widget button1(
     padding: .symmetric(horizontal: 24, vertical: 16),
     child: Row(
       mainAxisSize: .min,
+      spacing: 6,
       children: [
-        if (isBack) back(24),
+        if (isBack && !isMoon && hasIcon) back(24),
+        if (isMoon && hasIcon) moon(38),
 
         Text(
           m,
@@ -175,41 +237,45 @@ Widget button1(
           ),
         ),
 
-        if (!isBack) Transform.flip(flipX: !isBack, child: back(24)),
+        if (!isBack && !isMoon && hasIcon) Transform.flip(flipX: !isBack, child: back(24)),
       ],
     ),
   ),
 );
 
-Widget button2(String m, VoidCallback tap, {bool isBack = true}) =>
-    GestureDetector(
-      onTap: tap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white.withAlpha(10),
-          borderRadius: .circular(32),
-        ),
-        alignment: .center,
-        padding: .symmetric(horizontal: 20, vertical: 16),
-        child: Row(
-          mainAxisSize: .min,
-          children: [
-            if (isBack) back(24),
+Widget button2(
+  String m,
+  VoidCallback tap, {
+  bool isBack = true,
+  bool hasIcon = true,
+}) => GestureDetector(
+  onTap: tap,
+  child: Container(
+    decoration: BoxDecoration(
+      color: Colors.white.withAlpha(10),
+      borderRadius: .circular(32),
+    ),
+    alignment: .center,
+    padding: .symmetric(horizontal: 20, vertical: 16),
+    child: Row(
+      mainAxisSize: .min,
+      children: [
+        if (isBack && hasIcon) back(24),
 
-            Text(
-              m,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: .bold,
-              ),
-            ),
-
-            if (!isBack) Transform.flip(flipX: !isBack, child: back(24)),
-          ],
+        Text(
+          m,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: .bold,
+          ),
         ),
-      ),
-    );
+
+        if (!isBack && hasIcon) Transform.flip(flipX: !isBack, child: back(24)),
+      ],
+    ),
+  ),
+);
 
 Widget back(double size) => SvgPicture.asset(
   "assets/icons/arrow_back.svg",

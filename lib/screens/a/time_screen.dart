@@ -193,7 +193,7 @@ class _TimeScreenState extends State<TimeScreen> {
                     } else {
                       appController.time = TimeOfDay(
                         hour: time.hour + (isAm ? 0 : 12),
-                        minute: time.minute,
+                        minute: i * 5,
                       );
                       minuteMode = false;
                       appController.move(context, CheckScreen());
