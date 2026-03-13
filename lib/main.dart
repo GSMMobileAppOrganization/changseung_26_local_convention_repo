@@ -1,5 +1,6 @@
 import 'package:daily_tarot_poc_app_3/app_controller.dart';
 import 'package:daily_tarot_poc_app_3/screens/module_a/onboarding_screen.dart';
+import 'package:daily_tarot_poc_app_3/screens/module_b/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -12,7 +13,7 @@ void main() async {
   runApp(
     MaterialApp(
       theme: ThemeData(fontFamily: f1),
-      home: OnboardingScreen(),
+      home: HomeScreen(),
     ),
   );
 }

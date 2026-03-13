@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:daily_tarot_poc_app_3/main.dart';
 import 'package:daily_tarot_poc_app_3/models/card_model.dart';
@@ -21,12 +22,21 @@ class AppController {
   late final SharedPreferences prefs;
 
   late final List<CardModel> soulCardList;
+  late final List<CardModel> fruitCardList;
+  late final List<CardModel> loveCardList;
 
   final String moonKey = "sd";
 
   Future<void> init() async {
     prefs = await SharedPreferences.getInstance();
     await loadCardList();
+  }
+
+  String cardFormat(CardModel card) => "${card.number}. ${card.name}";
+
+  CardModel getRandomCard(List<CardModel> list) {
+    final n = Random().nextInt(9) + 1;
+    return list.where((e) => e.number == n).first;
   }
 
   CardModel getSoulCard() {
@@ -53,10 +63,20 @@ class AppController {
     final res1 = await rootBundle.loadString(
       "assets/data/soul_cards_data.json",
     );
+    final res2 = await rootBundle.loadString(
+      "assets/data/fruit_tarot_cards_data.json",
+    );
+    final res3 = await rootBundle.loadString(
+      "assets/data/loves_tarot_cards_data.json",
+    );
 
     final List date1 = jsonDecode(res1);
+    final List date2 = jsonDecode(res2);
+    final List date3 = jsonDecode(res3);
 
     soulCardList = date1.map((e) => CardModel.fromJson(e)).toList();
+    fruitCardList = date2.map((e) => CardModel.fromJson(e)).toList();
+    loveCardList = date3.map((e) => CardModel.fromJson(e)).toList();
   }
 
   void moveUrl(String url) => launchUrl(Uri.parse(url));
@@ -74,12 +94,11 @@ class AppController {
 
   bool isNowMonth(DateTime date) => DateUtils.isSameMonth(DateTime.now(), date);
 
-  int startDate(DateTime date) =>
-      (DateUtils.firstDayOffset(
-            date.year,
-            date.month,
-            DefaultMaterialLocalizations(),
-          ));
+  int startDate(DateTime date) => (DateUtils.firstDayOffset(
+    date.year,
+    date.month,
+    DefaultMaterialLocalizations(),
+  ));
 
   int lastDate(DateTime date) =>
       DateUtils.getDaysInMonth(date.year, date.month);

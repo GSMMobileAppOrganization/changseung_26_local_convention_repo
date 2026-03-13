@@ -176,6 +176,7 @@ Widget button1(
   double radius = 1.5,
   bool isBack = false,
   bool hasMoon = false,
+  bool hasIcon = true,
 }) => GestureDetector(
   onTap: tap,
   child: Container(
@@ -193,7 +194,7 @@ Widget button1(
     child: Row(
       mainAxisSize: .min,
       children: [
-        if (hasMoon) ...{moon(32), SizedBox(width: 8)},
+        if (hasMoon && hasIcon) ...{moon(32), SizedBox(width: 8)},
 
         Text(
           m,
@@ -204,7 +205,7 @@ Widget button1(
           ),
         ),
 
-        if (isBack) ...{
+        if (isBack && hasIcon) ...{
           Transform.flip(
             flipX: true,
             child: SvgPicture.asset(
@@ -219,66 +220,72 @@ Widget button1(
   ),
 );
 
-Widget button2(String m, VoidCallback tap, {bool isBack = true}) =>
-    GestureDetector(
-      onTap: tap,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: .circular(32),
-          color: Colors.white.withAlpha(20),
-        ),
-        padding: .symmetric(vertical: 16, horizontal: 24),
-        child: Row(
-          spacing: 12,
-          mainAxisSize: .min,
-          children: [
-            if (isBack) ...{
-              SizedBox(
-                width: 16,
-                child: ClipRect(
-                  clipBehavior: .hardEdge,
-                  child: Transform.flip(
-                    flipX: !isBack,
-                    child: SvgPicture.asset(
-                      "assets/icons/arrow_back.svg",
-                      fit: .fitHeight,
-                      height: 24,
-                    ),
-                  ),
+Widget button2(
+  String m,
+  VoidCallback tap, {
+  bool isBack = true,
+  bool hasIcon = true,
+  Alignment? align,
+}) => GestureDetector(
+  onTap: tap,
+  child: Container(
+    decoration: BoxDecoration(
+      borderRadius: .circular(32),
+      color: Colors.white.withAlpha(20),
+    ),
+    alignment: align,
+    padding: .symmetric(vertical: 16, horizontal: 24),
+    child: Row(
+      spacing: 12,
+      mainAxisSize: .min,
+      children: [
+        if (isBack && hasIcon) ...{
+          SizedBox(
+            width: 16,
+            child: ClipRect(
+              clipBehavior: .hardEdge,
+              child: Transform.flip(
+                flipX: !isBack,
+                child: SvgPicture.asset(
+                  "assets/icons/arrow_back.svg",
+                  fit: .fitHeight,
+                  height: 24,
                 ),
-              ),
-            },
-
-            Text(
-              m,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: .bold,
-                fontFamily: f2,
               ),
             ),
+          ),
+        },
 
-            if (!isBack) ...{
-              SizedBox(
-                width: 16,
-                child: ClipRect(
-                  clipBehavior: .hardEdge,
-                  child: Transform.flip(
-                    flipX: true,
-                    child: SvgPicture.asset(
-                      "assets/icons/arrow_back.svg",
-                      fit: .fitHeight,
-                      height: 24,
-                    ),
-                  ),
+        Text(
+          m,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: .bold,
+            fontFamily: f2,
+          ),
+        ),
+
+        if (!isBack && hasIcon) ...{
+          SizedBox(
+            width: 16,
+            child: ClipRect(
+              clipBehavior: .hardEdge,
+              child: Transform.flip(
+                flipX: true,
+                child: SvgPicture.asset(
+                  "assets/icons/arrow_back.svg",
+                  fit: .fitHeight,
+                  height: 24,
                 ),
               ),
-            },
-          ],
-        ),
-      ),
-    );
+            ),
+          ),
+        },
+      ],
+    ),
+  ),
+);
 
 Widget cloud() => Stack(
   children: [

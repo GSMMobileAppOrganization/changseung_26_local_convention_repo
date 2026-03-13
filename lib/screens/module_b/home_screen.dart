@@ -1,6 +1,8 @@
 import 'package:daily_tarot_poc_app_3/app_controller.dart';
 import 'package:daily_tarot_poc_app_3/screens/module_b/moon_screen.dart';
 import 'package:daily_tarot_poc_app_3/screens/module_b/soul_card_screen.dart';
+import 'package:daily_tarot_poc_app_3/screens/module_c/fruit_screen.dart';
+import 'package:daily_tarot_poc_app_3/screens/module_c/love_screen.dart';
 import 'package:daily_tarot_poc_app_3/widgets/background2.dart';
 import 'package:daily_tarot_poc_app_3/widgets/logo_widget.dart';
 import 'package:daily_tarot_poc_app_3/widgets/widgets.dart';
@@ -69,10 +71,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           "assets/images/love_tarot.png",
                           "인연 타로",
                           "지금은 힘들지만 그래도,\n그 사람과 인연이 될 수 있을까?",
-                          () => appController.showSnack(
-                            context,
-                            "아직 개발중인 서비스 입니다.",
-                          ),
+                          () {
+                            /*appController.showSnack(
+                              context,
+                              "아직 개발중인 서비스 입니다.",
+                            );*/
+                            appController.move(context, LoveScreen());
+                          },
                           contentAlign: .bottomLeft,
                           alignLeft: true,
                         ),
@@ -83,10 +88,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           "assets/images/fruit_tarot.png",
                           "열매 타로",
                           "지금 생각하고 있는 일은\n어떤 결과로 이어질까?",
-                          () => appController.showSnack(
-                            context,
-                            "아직 개발중인 서비스 입니다.",
-                          ),
+                          () {
+                            /*appController.showSnack(
+                              context,
+                              "아직 개발중인 서비스 입니다.",
+                            );*/
+
+                            appController.move(context, FruitScreen());
+                          },
                           contentAlign: .bottomLeft,
                           alignLeft: true,
                         ),

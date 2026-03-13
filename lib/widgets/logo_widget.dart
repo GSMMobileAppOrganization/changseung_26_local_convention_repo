@@ -36,6 +36,7 @@ class LogoWidget extends StatelessWidget {
               fontWeight: .bold,
               fontSize: 18,
             ),
+            textAlign: .center,
           ),
         },
       ],
