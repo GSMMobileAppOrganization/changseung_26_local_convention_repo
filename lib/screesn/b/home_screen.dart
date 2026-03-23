@@ -31,8 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 24,
+                    horizontal: 24,
+                    vertical: 32,
                   ),
                   child: moonCount(26),
                 ),
@@ -151,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
       clipBehavior: .hardEdge,
       decoration: BoxDecoration(
         borderRadius: .circular(16),
-        boxShadow: [BoxShadow(color: grad.withAlpha(160), blurRadius: 16)],
+        boxShadow: [BoxShadow(color: Colors.white.withAlpha(60), blurRadius: 16)],
       ),
       child: Stack(
         children: [
@@ -200,6 +200,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget section(String title, Widget child) => Column(
     crossAxisAlignment: .start,
     spacing: 12,
-    children: [title24W(title), child],
+    children: [title24W(size: 22, title), child],
   );
 }

@@ -50,6 +50,7 @@ class AppController {
   DateTime? date;
   TimeOfDay? time;
   bool? isMale;
+  bool isAm = false;
 
   int moon = 0;
   final String key = "sdffds";

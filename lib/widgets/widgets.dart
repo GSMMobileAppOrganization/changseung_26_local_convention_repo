@@ -19,7 +19,7 @@ Widget backButton(BuildContext context) => Align(
   alignment: .topLeft,
   child: GestureDetector(
     onTap: () => appController.back(context, HomeScreen()),
-    child: Padding(padding: const EdgeInsets.all(16), child: back(28)),
+    child: Padding(padding: const EdgeInsets.all(16), child: back(24)),
   ),
 );
 
@@ -28,7 +28,7 @@ Widget closeButton(BuildContext context) => GestureDetector(
   child: Container(
     decoration: BoxDecoration(
       shape: .circle,
-      border: .all(color: Colors.white54, width: 1.6),
+      border: .all(color: Colors.white54, width: 1.4),
     ),
     padding: EdgeInsets.all(6),
     child: Icon(Icons.close, color: Colors.white54, size: 36),
@@ -39,11 +39,8 @@ Widget moonCount(double size) => Row(
   mainAxisSize: .min,
   children: [
     moon(size * 1.4),
-    SizedBox(
-      width: size,
-      child: Center(
-        child: title14W("${appController.moon}", size: size * .7, font: f2),
-      ),
+    Center(
+      child: title14W("${appController.moon}", size: size * .7, font: f2),
     ),
   ],
 );
@@ -174,6 +171,7 @@ Widget outButton(
   Alignment align = .centerLeft,
   Color? color,
   bool hasIcon = false,
+  bool isSpace = false,
 }) => GestureDetector(
   onTap: tap,
   child: Container(
@@ -182,13 +180,14 @@ Widget outButton(
       borderRadius: .circular(32),
     ),
     alignment: align,
-    padding: .symmetric(horizontal: 24, vertical: 14),
+    padding: .symmetric(horizontal: hasIcon && !isSpace ? 0 : 24, vertical: 12),
     child: Row(
+      mainAxisAlignment: isSpace ? .spaceBetween : .center,
+      mainAxisSize: isSpace ? .max : .min,
       spacing: 6,
-      mainAxisSize: .min,
       children: [
-        title16W(m, font: f2, color: color),
-        if (hasIcon) Transform.flip(flipX: true, child: back(22, color: color)),
+        title14W(m, font: f2, color: color ?? Colors.white70),
+        if (hasIcon) Transform.flip(flipX: true, child: back(18, color: color)),
       ],
     ),
   ),
@@ -201,15 +200,15 @@ Widget wheelList(
 ) => Stack(
   children: [
     Positioned.fill(
-      top: 60,
       child: Center(
-        child: Container(color: Colors.white, height: 1.6, width: 20),
-      ),
-    ),
-    Positioned.fill(
-      bottom: 60,
-      child: Center(
-        child: Container(color: Colors.white, height: 1.6, width: 20),
+        child: Column(
+          mainAxisSize: .min,
+          children: [
+            Container(color: Colors.white54, height: 1.6, width: 14),
+            SizedBox(height: 60),
+            Container(color: Colors.white54, height: 1.6, width: 14),
+          ],
+        ),
       ),
     ),
 
@@ -218,12 +217,14 @@ Widget wheelList(
       onSelectedItemChanged: (value) {
         change.call(list[value]);
       },
+      diameterRatio: 15,
+      overAndUnderCenterOpacity: .5,
       controller: FixedExtentScrollController(initialItem: initialValue),
       childDelegate: ListWheelChildLoopingListDelegate(
         children: list
             .map(
               (e) => Center(
-                child: title24W(appController.numberFormat("00", e), font: f2),
+                child: title20W(appController.numberFormat("00", e), font: f2),
               ),
             )
             .toList(),
@@ -236,7 +237,7 @@ Widget genderButton(
   bool isMale,
   VoidCallback tap, {
   double pad = 8,
-  double size = 60,
+  double size = 52,
   isCircle = false,
 }) => GestureDetector(
   onTap: tap,
@@ -262,7 +263,7 @@ Widget input(
 }) => TextField(
   keyboardType: isNumber ? .number : null,
   decoration: InputDecoration(
-    hint: title16W(hint, font: f2, color: Colors.white54),
+    hint: title16W(size: 15, hint, font: f2, color: Colors.white54),
     enabledBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.white54, width: 1.6),
       borderRadius: .circular(32),
@@ -296,9 +297,9 @@ Widget button1(
       borderRadius: .circular(32),
       boxShadow: [
         BoxShadow(
-          color: grad.withAlpha(160),
+          color: grad.withAlpha(100),
           offset: .new(0, 8),
-          blurRadius: 12,
+          blurRadius: 18,
         ),
       ],
     ),
@@ -308,9 +309,9 @@ Widget button1(
       spacing: 6,
       mainAxisSize: .min,
       children: [
-        if (hasMoon && hasIcon) moon(42),
-        title18W(m, weight: .w800, size: 18),
-        if (!hasMoon && hasIcon) Transform.flip(flipX: true, child: back(22)),
+        if (hasMoon && hasIcon) moon(32),
+        title18W(m, weight: .w800, size: 17),
+        if (!hasMoon && hasIcon) Transform.flip(flipX: true, child: back(23)),
       ],
     ),
   ),
@@ -325,18 +326,19 @@ Widget button2(
   onTap: tap,
   child: Container(
     decoration: BoxDecoration(
-      color: Colors.white.withAlpha(20),
+      color: Colors.white.withAlpha(16),
       borderRadius: .circular(32),
     ),
     alignment: .center,
     padding: .symmetric(vertical: 14),
     child: Row(
+      spacing: 8,
       mainAxisSize: .min,
       children: [
-        if (isBack && hasIcon) back(26),
+        if (isBack && hasIcon) back(24),
 
-        title18W(m, font: f2),
-        if (!isBack && hasIcon) Transform.flip(flipX: true, child: back(26)),
+        title16W(size: 16, m, font: f2),
+        if (!isBack && hasIcon) Transform.flip(flipX: true, child: back(24)),
       ],
     ),
   ),
@@ -359,60 +361,53 @@ Widget moon(double size) => Container(
   height: size * .8,
   decoration: BoxDecoration(
     shape: .circle,
-    boxShadow: [BoxShadow(color: grad.withAlpha(160), blurRadius: 8)],
+    boxShadow: [BoxShadow(color: grad.withAlpha(30), blurRadius: 8)],
   ),
   child: ClipRect(
     child: Image.asset("assets/images/moon.png", fit: .fitWidth, width: size),
   ),
 );
 
-Widget moon2(double size) => Stack(
+Widget moon2(int moonCount) => Stack(
   children: [
-    Positioned.fill(
-      child: Align(alignment: .topRight, child: moon(size * .6)),
-    ),
-    moon(size),
-  ],
-);
-
-Widget moon3(double size) => Stack(
-  children: [
-    Positioned.fill(
-      child: Align(alignment: .topRight, child: moon(size * .6)),
-    ),
-    Positioned.fill(
-      child: Align(alignment: .bottomRight, child: moon(size * .3)),
-    ),
-    moon(size),
+    if (moonCount > 2)
+      Positioned.fill(
+        child: Align(alignment: .bottomRight, child: moon(12)),
+      ),
+    if (moonCount > 1)
+      Positioned.fill(
+        child: Align(alignment: .topRight, child: moon(26)),
+      ),
+    moon(42),
   ],
 );
 
 Widget cloud() => Stack(
   children: [
     Positioned(
-      right: -12,
-      bottom: 42,
-      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 250),
+      right: -24,
+      bottom: 60,
+      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 230),
     ),
     Positioned(
-      left: -38,
-      bottom: 34,
-      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 250),
+      left: -24,
+      bottom: 36,
+      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 230),
     ),
     Positioned(
-      right: -64,
+      right: -82,
       bottom: 24,
-      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 250),
+      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 230),
     ),
     Positioned(
-      left: -18,
-      bottom: -8,
-      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 250),
-    ),
-    Positioned(
-      right: -12,
+      left: -24,
       bottom: -12,
-      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 250),
+      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 230),
+    ),
+    Positioned(
+      right: 0,
+      bottom: -24,
+      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 230),
     ),
   ],
 );

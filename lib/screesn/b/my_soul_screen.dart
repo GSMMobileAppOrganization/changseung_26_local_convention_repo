@@ -39,10 +39,10 @@ class _MySoulScreen1State extends State<MySoulScreen1> {
         body: Center(
           child: Column(
             children: [
-              Spacer(flex: 2),
+              Spacer(),
               LogoWidget(title: appController.cardFormat(card), ver2: true),
 
-              Spacer(flex: 3),
+              Spacer(flex: 2),
 
               Hero(
                 tag: "t1",
@@ -68,11 +68,11 @@ class MySoulScreen2 extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.black,
-        body: Center(
+        body: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(24),
+                padding: const EdgeInsets.only(left: 36, top: 16),
                 child: Row(
                   children: [
                     Hero(
@@ -99,13 +99,14 @@ class MySoulScreen2 extends StatelessWidget {
 
                     Flexible(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 12),
+                        padding: const EdgeInsets.only(left: 18),
                         child: Column(
                           mainAxisSize: .min,
                           crossAxisAlignment: .start,
                           children: [
                             LogoWidget(ver2: true),
                             title16W(
+                              size: 15,
                               appController.dateFormat(
                                 "y년 M월 d일생,",
                                 appController.date!,
@@ -115,6 +116,7 @@ class MySoulScreen2 extends StatelessWidget {
                             SizedBox(height: 24),
                             Flexible(
                               child: title16W(
+                                size: 15,
                                 "당신의 소울카드는\n${appController.cardFormat(card)} 입니다.",
                                 height: 2,
                               ),
@@ -127,22 +129,55 @@ class MySoulScreen2 extends StatelessWidget {
                 ),
               ),
 
-              Spacer(flex: 3),
+              SizedBox(height: 48),
 
               Padding(
                 padding: .symmetric(horizontal: 24),
-                child: title16W(card.storytelling, align: .center, height: 2.2),
+                child: SingleChildScrollView(
+                  child: Wrap(
+                    alignment: .center,
+                    children: split(card.storytelling, 8)
+                        .map((e) => title16W(size: 15, e, align: .center, height: 2.2))
+                        .toList(),
+                  ),
+                ),
               ),
 
-              Spacer(flex: 5),
+              SizedBox(height: 98,),
 
               closeButton(context),
 
-              Spacer(flex: 2),
+              SizedBox(height: 36),
             ],
           ),
         ),
       ),
     );
+  }
+
+  List<String> split(String text, int stand) {
+    final List<String> res = [];
+    String remain = text;
+
+    while (remain.length > stand) {
+      int index = -1;
+
+      for (int i = stand; i < remain.length; i++) {
+        if (remain[i] == "." || remain[i] == " ") {
+          index = i;
+          break;
+        }
+      }
+
+      if (index != -1) {
+        res.add(remain.substring(0, index + 1));
+        remain = remain.substring(index + 1);
+      } else {
+        break;
+      }
+    }
+
+    if (remain.isNotEmpty) res.add(remain.trim());
+    return res;
   }
 }

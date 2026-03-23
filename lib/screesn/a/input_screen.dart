@@ -12,21 +12,19 @@ class InputScreen extends StatelessWidget {
     required this.child,
     required this.prevPage,
     required this.progress,
-    this.isForgot = false,
   });
 
   final String title;
   final Widget child;
   final Widget? prevPage;
   final int? progress;
-  final bool isForgot;
 
   @override
   Widget build(BuildContext context) {
     return Background1(
       child: Column(
         children: [
-          SizedBox(height: 140),
+          SizedBox(height: 130),
 
           LogoWidget(title: title),
 
@@ -47,9 +45,9 @@ class InputScreen extends StatelessWidget {
                   ),
                 ),
 
-                if (isForgot)
+                if (progress == 5)
                   SizedBox(
-                    width: 180,
+                    width: 170,
                     child: button2("잘 모르겠어요", isBack: false, () {
                       appController.time = null;
                       appController.go(context, CheckScreen());
@@ -65,17 +63,14 @@ class InputScreen extends StatelessWidget {
               children: List.generate(
                 5,
                 (index) => Flexible(
-                  child: Padding(
-                    padding: .only(left: progress! > index ? 2 : 0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: progress! > index
-                            ? Colors.white
-                            : Colors.white.withAlpha(100),
-                        borderRadius: progress! > index ? .circular(8) : null,
-                      ),
-                      height: 8,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: progress! > index
+                          ? Colors.white
+                          : Colors.white.withAlpha(100),
+                      borderRadius: progress! > index ? .circular(8) : null,
                     ),
+                    height: 8,
                   ),
                 ),
               ),

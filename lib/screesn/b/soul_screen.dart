@@ -23,11 +23,14 @@ class _SoulScreenState extends State<SoulScreen> {
         children: [
           backButton(context),
 
+          SizedBox(height: 24,),
+
           LogoWidget(ver2: true, title: "나의 생일로 알아보는 소울카드"),
 
           Spacer(),
 
           Text.rich(
+            style: TextStyle(fontFamily: f2, fontWeight: .bold, fontSize: 14, color: Colors.white),
             TextSpan(
               children: [
                 _y("소울 넘버"),
@@ -45,19 +48,20 @@ class _SoulScreenState extends State<SoulScreen> {
               ],
             ),
             textAlign: .center,
-            strutStyle: StrutStyle(height: 2.2),
+            strutStyle: StrutStyle(height: 2),
           ),
 
           Spacer(),
 
           SizedBox(
-            width: 280,
+            width: 220,
             child: outButton(
               hasIcon: true,
-              color: Colors.white54,
-              align: .center,
+              color: date != null ? Colors.white : Colors.white54,
+              isSpace: date != null,
+              align: date != null ? .centerLeft : .center,
               date != null
-                  ? appController.dateFormat("y/MM/dd", date!)
+                  ? appController.dateFormat("y년 M월 d일", date!)
                   : "생년월일을 선택해 주세요",
               () {
                 showDialog(
@@ -71,7 +75,7 @@ class _SoulScreenState extends State<SoulScreen> {
           Spacer(),
 
           SizedBox(
-            width: 310,
+            width: 270,
             child: button1("달 10개로 소울카드 찾기", () {
               if (appController.moon < 10 || date == null) {
                 appController.showSnack(
@@ -92,6 +96,7 @@ class _SoulScreenState extends State<SoulScreen> {
           SizedBox(height: 12),
 
           title12W(
+            size: 10,
             "소울카드에 사용되는 정보는\n카드 조합 용도 외에 사용되지 않습니다.",
             align: .center,
             font: f2,
@@ -118,12 +123,12 @@ class _SoulScreenState extends State<SoulScreen> {
         decoration: BoxDecoration(borderRadius: .circular(12)),
         child: background(
           child: Padding(
-            padding: .symmetric(horizontal: 24, vertical: 12),
+            padding: .symmetric(horizontal: 24, vertical: 18),
             child: StatefulBuilder(
               builder: (context, set) => Column(
                 crossAxisAlignment: .start,
                 children: [
-                  title24W("생년월일 선택", font: f2, align: .start),
+                  title20W("생년월일 선택", font: f2, align: .start),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 12),
@@ -132,7 +137,7 @@ class _SoulScreenState extends State<SoulScreen> {
                           border: .symmetric(
                             horizontal: BorderSide(
                               color: Colors.white30,
-                              width: 1.6,
+                              width: 1.2,
                             ),
                           ),
                         ),
@@ -195,7 +200,7 @@ class _SoulScreenState extends State<SoulScreen> {
                         onTap: () {
                           Navigator.pop(context);
                         },
-                        child: title18W("취소", font: f2),
+                        child: title16W("취소", font: f2),
                       ),
                       GestureDetector(
                         onTap: () {
@@ -211,7 +216,7 @@ class _SoulScreenState extends State<SoulScreen> {
                           setState(() {});
                           Navigator.pop(context);
                         },
-                        child: title18W("선택", font: f2),
+                        child: title16W("선택", font: f2),
                       ),
                     ],
                   ),
@@ -226,21 +231,11 @@ class _SoulScreenState extends State<SoulScreen> {
 
   TextSpan _y(String m) => TextSpan(
     text: m,
-    style: TextStyle(
-      color: yellow,
-      fontFamily: f2,
-      fontWeight: .bold,
-      fontSize: 14,
-    ),
+    style: TextStyle(color: yellow, fontSize: 12),
   );
 
   TextSpan _w(String m) => TextSpan(
     text: m,
-    style: TextStyle(
-      color: Colors.white,
-      fontFamily: f2,
-      fontWeight: .bold,
-      fontSize: 14,
-    ),
+    style: TextStyle(color: Colors.white, fontSize: 12),
   );
 }

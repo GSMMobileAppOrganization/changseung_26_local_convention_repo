@@ -45,19 +45,11 @@ class _DateScreenState extends State<DateScreen> {
                 ).add(Duration(days: index));
                 return GestureDetector(
                   onTap: () {
-                    if (appController.isNowDay(cur)) {
-                      appController.showSnack(
-                        context,
-                        "오늘 이후의 날짜는 선택할 수 없습니다.",
-                      );
-                      return;
-                    }
-
                     appController.date = cur;
                     appController.go(context, TimeScreen());
                   },
                   child: Center(
-                    child: title18W(
+                    child: title16W(
                       "${cur.day}",
                       color: DateUtils.isSameMonth(date, cur)
                           ? Colors.white
@@ -66,7 +58,11 @@ class _DateScreenState extends State<DateScreen> {
                   ),
                 );
               },
-              itemCount: 7 * 5,
+              itemCount:
+                  appController.lastDate(date) + appController.startDate(date) >
+                      7 * 5
+                  ? 7 * 6
+                  : 7 * 5,
             ),
           ),
         ],

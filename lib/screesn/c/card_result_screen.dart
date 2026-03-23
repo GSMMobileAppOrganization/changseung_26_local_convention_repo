@@ -31,9 +31,9 @@ class CardResultScreen1 extends StatelessWidget {
                 mainAxisSize: .min,
                 spacing: 12,
                 children: [
-                  cardWidget(appController.cardPath(card), 150),
+                  cardWidget(appController.cardPath(card), 140),
                   Flexible(
-                    child: title18W(appController.cardFormat(card, ver2: true)),
+                    child: title16W(appController.cardFormat(card, ver2: true)),
                   ),
                 ],
               ),
@@ -53,7 +53,7 @@ class CardResultScreen1 extends StatelessWidget {
             }, hasIcon: false),
           ),
 
-          Spacer(flex: 5),
+          Spacer(flex: 6),
         ],
       ),
     );
@@ -68,65 +68,63 @@ class CardResultScreen2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Background2(
-      child: Column(
-        children: [
-          SizedBox(height: 36),
+      down: true,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: .start,
+          children: [
+            SizedBox(height: 42,),
 
-          LogoWidget(ver2: true, title: "카드풀이"),
+            LogoWidget(ver2: true, title: "카드풀이"),
 
-          SizedBox(height: 24),
+            SizedBox(height: 36),
 
-          Hero(
-            tag: "t2",
-            child: Material(
-              color: Colors.transparent,
-              child: Column(
-                spacing: 12,
-                mainAxisSize: .min,
-                children: [
-                  cardWidget(appController.cardPath(card), 100),
-                  Flexible(
-                    child: title18W(appController.cardFormat(card, ver2: true)),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          SizedBox(height: 24),
-
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 36),
-              child: SingleChildScrollView(
-                child: title16W(
-                  card.storytelling.split(".").fold("", (
-                    previousValue,
-                    element,
-                  ) {
-                    if (element.trim().isNotEmpty && !element.contains(".")) {
-                      return "$previousValue${element.trim()}.\n\n";
-                    }
-                    return previousValue + element.trim();
-                  }),
-                  font: f2,
-                  color: Colors.white70,
+            Hero(
+              tag: "t2",
+              child: Material(
+                color: Colors.transparent,
+                child: Column(
+                  spacing: 12,
+                  mainAxisSize: .min,
+                  children: [
+                    cardWidget(appController.cardPath(card), 100),
+                    Flexible(
+                      child: title16W(
+                        appController.cardFormat(card, ver2: true),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ),
 
-          SizedBox(height: 24),
+            SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 56),
+              child: SingleChildScrollView(
+                child: title16W(
+                  size: 14,
+                  card.storytelling.replaceAll(". ", ".\n\n"),
+                  font: f2,
+                  color: Colors.white70,
+                  height: 1.6,
+                ),
+              ),
+            ),
 
-          SizedBox(
-            width: 160,
-            child: button2("돌아가기", () {
-              appController.goReset(context, HomeScreen());
-            }, hasIcon: false),
-          ),
+            SizedBox(height: 62),
 
-          SizedBox(height: 72),
-        ],
+            SizedBox(
+              width: 130,
+              child: button2("돌아가기", () {
+                appController.goReset(context, HomeScreen());
+              }, hasIcon: false),
+            ),
+
+            SizedBox(height: 62),
+
+          ],
+        ),
       ),
     );
   }

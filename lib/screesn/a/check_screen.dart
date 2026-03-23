@@ -20,16 +20,16 @@ class CheckScreen extends StatelessWidget {
       prevPage: null,
       progress: null,
       child: Padding(
-        padding: .symmetric(horizontal: 36, vertical: 48),
+        padding: .symmetric(horizontal: 50, vertical: 46),
         child: Column(
-          spacing: 12,
+          spacing: 10,
           children: [
             outButton(
               "이름: ${appController.name}",
               () => appController.go(context, NameScreen()),
             ),
             Row(
-              spacing: 18,
+              spacing: 12,
               children: [
                 Expanded(
                   child: outButton(
@@ -39,8 +39,8 @@ class CheckScreen extends StatelessWidget {
                 ),
                 genderButton(
                   isCircle: true,
-                  size: 42,
-                  pad: 8,
+                  size: 38,
+                  pad: 4,
                   appController.isMale!,
                   () => appController.go(context, GenderScreen()),
                 ),

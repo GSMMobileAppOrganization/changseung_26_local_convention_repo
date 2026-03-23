@@ -36,7 +36,7 @@ class _NameScreenState extends State<NameScreen> {
       prevPage: OnboardingScreen(),
       progress: 1,
       child: Padding(
-        padding: .all(48),
+        padding: .symmetric(vertical: 38, horizontal: 58),
         child: Column(
           spacing: 24,
           children: [

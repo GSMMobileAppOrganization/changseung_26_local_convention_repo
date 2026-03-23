@@ -35,7 +35,7 @@ class _AgeScreenState extends State<AgeScreen> {
       prevPage: NameScreen(),
       progress: 2,
       child: Padding(
-        padding: .all(48),
+        padding: .symmetric(vertical: 38, horizontal: 58),
         child: Column(
           spacing: 24,
           children: [

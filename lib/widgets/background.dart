@@ -15,9 +15,9 @@ class Background1 extends StatelessWidget {
           child: Stack(
             children: [
               cloud(),
-      
+
               moon(140),
-      
+
               if (child != null) Positioned.fill(child: Center(child: child)),
             ],
           ),
@@ -28,9 +28,10 @@ class Background1 extends StatelessWidget {
 }
 
 class Background2 extends StatelessWidget {
-  const Background2({super.key, this.child});
+  const Background2({super.key, required this.child, this.down = false});
 
-  final Widget? child;
+  final Widget child;
+  final bool down;
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +41,12 @@ class Background2 extends StatelessWidget {
         body: background(
           child: Stack(
             children: [
-              Transform.flip(flipY: true, child: cloud()),
-              cloud(),
-      
-              if (child != null) Positioned.fill(child: Center(child: child)),
+              Positioned.fill(
+                top: down ? -36 : 0,
+                child: Transform.flip(flipY: true, child: cloud()),
+              ),
+              Positioned.fill(bottom: down ? -36 : 0, child: cloud()),
+              Positioned.fill(child: child),
             ],
           ),
         ),

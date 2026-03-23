@@ -11,6 +11,7 @@ class LogoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: .min,
       children: [
         if (!ver2)
           Image.asset(
@@ -30,7 +31,8 @@ class LogoWidget extends StatelessWidget {
           ),
         ),
 
-        if (title != null) title18W(title!, align: .center, weight: .w800),
+        if (title != null)
+          title18W(size: 17, title!, align: .center, weight: .w800),
       ],
     );
   }

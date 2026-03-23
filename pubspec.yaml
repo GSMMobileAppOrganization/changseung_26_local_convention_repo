@@ -109,9 +109,9 @@ flutter:
         - asset: assets/Nanum/NanumMyeongjo.ttf
           weight: 400
         - asset: assets/Nanum/NanumMyeongjoBold.ttf
-          weight: 600
-        - asset: assets/Nanum/NanumMyeongjoExtraBold.ttf
           weight: 700
+        - asset: assets/Nanum/NanumMyeongjoExtraBold.ttf
+          weight: 800
 
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic

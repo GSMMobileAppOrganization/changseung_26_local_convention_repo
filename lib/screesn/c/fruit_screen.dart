@@ -30,6 +30,7 @@ class _FruitScreenState extends State<FruitScreen> {
   @override
   Widget build(BuildContext context) {
     return Background2(
+      down: true,
       child: Column(
         children: [
           SizedBox(height: 36),
