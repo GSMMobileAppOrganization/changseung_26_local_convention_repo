@@ -19,7 +19,7 @@ class _TimeScreenState extends State<TimeScreen> {
   TimeOfDay time = appController.time ?? TimeOfDay(hour: 9, minute: 0);
 
   bool minuteMode = false;
-  final double size = 32;
+  final double size = 34;
   int angle = appController.time?.hourOfPeriod ?? 9;
 
   @override
@@ -33,10 +33,11 @@ class _TimeScreenState extends State<TimeScreen> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 24),
             child: Row(
-              spacing: 18,
+              spacing: 8,
               mainAxisAlignment: .center,
               children: [
                 timeView(appController.timeFormat("hh", time), !minuteMode),
+                title20W(":", size: 28),
                 timeView(appController.timeFormat("mm", time), minuteMode),
                 timeToggle(),
               ],
@@ -64,11 +65,11 @@ class _TimeScreenState extends State<TimeScreen> {
                   : Colors.white.withAlpha(100),
             ),
             borderRadius: .only(
-              topLeft: .circular(16),
-              topRight: .circular(16),
+              topLeft: .circular(14),
+              topRight: .circular(14),
             ),
           ),
-          padding: .symmetric(horizontal: 9, vertical: 2),
+          padding: .symmetric(horizontal: 7, vertical: 2),
           child: title14W(
             "AM",
             size: 15,
@@ -91,11 +92,11 @@ class _TimeScreenState extends State<TimeScreen> {
                   : Colors.white.withAlpha(100),
             ),
             borderRadius: .only(
-              bottomLeft: .circular(16),
-              bottomRight: .circular(16),
+              bottomLeft: .circular(14),
+              bottomRight: .circular(14),
             ),
           ),
-          padding: .symmetric(horizontal: 9, vertical: 2),
+          padding: .symmetric(horizontal: 7, vertical: 2),
           child: title14W(
             "PM",
             size: 15,
@@ -109,11 +110,11 @@ class _TimeScreenState extends State<TimeScreen> {
   );
 
   Widget clock() {
-    final radius = (80 - size / 2);
+    final radius = (85 - size / 2);
 
     return Container(
-      width: 160,
-      height: 160,
+      width: 170,
+      height: 170,
       decoration: BoxDecoration(
         shape: .circle,
         border: .all(color: Colors.white, width: 1.5),
@@ -135,15 +136,15 @@ class _TimeScreenState extends State<TimeScreen> {
                 margin: .only(top: 30),
                 height: radius - size / 2,
                 color: Colors.white,
-                width: 2,
+                width: 1.2,
               ),
             ),
           ),
 
           for (int i = 1; i <= 12; i++) ...{
             Positioned(
-              top: 80 + radius * sin((i * 30 - 90) * pi / 180) - size / 2,
-              left: 80 + radius * cos((i * 30 - 90) * pi / 180) - size / 2,
+              top: 85 + radius * sin((i * 30 - 90) * pi / 180) - size / 2,
+              left: 85 + radius * cos((i * 30 - 90) * pi / 180) - size / 2,
               child: GestureDetector(
                 onTap: () {
                   angle = i;
@@ -186,7 +187,7 @@ class _TimeScreenState extends State<TimeScreen> {
       ),
       borderRadius: .circular(12),
     ),
-    padding: .symmetric(horizontal: 14, vertical: 4),
+    padding: .symmetric(horizontal: 13, vertical: 4),
     child: title24W(
       m,
       size: 28,

@@ -38,7 +38,7 @@ Widget closeButton(BuildContext context) => GestureDetector(
 Widget moonCount(double size) => Row(
   mainAxisSize: .min,
   children: [
-    moon(size * 1.4),
+    moon(size + 10),
     Center(
       child: title14W("${appController.moon}", size: size * .7, font: f2),
     ),
@@ -180,13 +180,13 @@ Widget outButton(
       borderRadius: .circular(32),
     ),
     alignment: align,
-    padding: .symmetric(horizontal: hasIcon && !isSpace ? 0 : 24, vertical: 12),
+    padding: .symmetric(horizontal: hasIcon && !isSpace ? 0 : 24, vertical: 13),
     child: Row(
       mainAxisAlignment: isSpace ? .spaceBetween : .center,
       mainAxisSize: isSpace ? .max : .min,
       spacing: 6,
       children: [
-        title14W(m, font: f2, color: color ?? Colors.white70),
+        title14W(m, font: f2, color: color ?? Colors.white.withAlpha(240)),
         if (hasIcon) Transform.flip(flipX: true, child: back(18, color: color)),
       ],
     ),
@@ -261,6 +261,7 @@ Widget input(
   bool isNumber = false,
   String? initialValue,
 }) => TextField(
+  inputFormatters: isNumber ? [FilteringTextInputFormatter.digitsOnly] : null,
   keyboardType: isNumber ? .number : null,
   decoration: InputDecoration(
     hint: title16W(size: 15, hint, font: f2, color: Colors.white54),
@@ -306,12 +307,12 @@ Widget button1(
     alignment: .center,
     padding: .symmetric(vertical: 16),
     child: Row(
-      spacing: 6,
+      spacing: 8,
       mainAxisSize: .min,
       children: [
         if (hasMoon && hasIcon) moon(32),
         title18W(m, weight: .w800, size: 17),
-        if (!hasMoon && hasIcon) Transform.flip(flipX: true, child: back(23)),
+        if (!hasMoon && hasIcon) Transform.flip(flipX: true, child: back(24)),
       ],
     ),
   ),
@@ -345,7 +346,7 @@ Widget button2(
 );
 
 Widget back(double size, {Color? color}) => SizedBox(
-  width: size * .7,
+  width: size * .4,
   child: ClipRect(
     clipBehavior: .hardEdge,
     child: SvgPicture.asset(
@@ -387,27 +388,27 @@ Widget cloud() => Stack(
     Positioned(
       right: -24,
       bottom: 60,
-      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 230),
+      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 240),
     ),
     Positioned(
       left: -24,
       bottom: 36,
-      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 230),
+      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 240),
     ),
     Positioned(
-      right: -82,
+      right: -84,
       bottom: 24,
-      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 230),
+      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 240),
     ),
     Positioned(
       left: -24,
       bottom: -12,
-      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 230),
+      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 240),
     ),
     Positioned(
       right: 0,
       bottom: -24,
-      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 230),
+      child: Image.asset("assets/images/cloud.png", fit: .fitWidth, width: 240),
     ),
   ],
 );

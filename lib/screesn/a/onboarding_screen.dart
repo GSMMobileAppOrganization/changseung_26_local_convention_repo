@@ -32,24 +32,28 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     ani1 = Tween(
       begin: .0,
       end: 1.0,
-    ).animate(CurvedAnimation(parent: _controller, curve: Interval(.0, .3)));
+    ).animate(CurvedAnimation(parent: _controller, curve: Interval(0.0, .4)));
 
     ani2 = Tween(
       begin: .0,
       end: 1.0,
-    ).animate(CurvedAnimation(parent: _controller, curve: Interval(.4, .5)));
+    ).animate(CurvedAnimation(parent: _controller, curve: Interval(.2, .8)));
 
     ani3 = Tween(
       begin: .0,
       end: 1.0,
-    ).animate(CurvedAnimation(parent: _controller, curve: Interval(.6, .8)));
+    ).animate(CurvedAnimation(parent: _controller, curve: Interval(.4, .6)));
 
     ani4 = Tween(
       begin: .0,
       end: 1.0,
-    ).animate(CurvedAnimation(parent: _controller, curve: Interval(.9, 1.0)));
+    ).animate(CurvedAnimation(parent: _controller, curve: Interval(.8, 1.0)));
 
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      await precacheImage(AssetImage("assets/images/moon.png"), context);
+      await precacheImage(AssetImage("assets/images/cloud.png"), context);
+
+      await Future.delayed(Duration(milliseconds: 100));
       _controller.forward();
     });
 
@@ -83,7 +87,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   FadeTransition(
                     opacity: ani3,
                     child: RotationTransition(
-                      turns: Tween(begin: -.9, end: -1.0).animate(ani3),
+                      turns: Tween(begin: .05, end: 0.0).animate(ani3),
                       child: LogoWidget(title: "운명을 엿볼 시간이에요."),
                     ),
                   ),
@@ -94,9 +98,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                     opacity: ani4,
                     child: SlideTransition(
                       position: Tween<Offset>(
-                        begin: .new(0, -.2),
+                        begin: .new(-.4, 0),
                         end: .zero,
-                      ).animate(ani2),
+                      ).animate(ani4),
                       child: SizedBox(
                         width: 180,
                         child: button1(

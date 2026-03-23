@@ -23,14 +23,19 @@ class _SoulScreenState extends State<SoulScreen> {
         children: [
           backButton(context),
 
-          SizedBox(height: 24,),
+          SizedBox(height: 24),
 
           LogoWidget(ver2: true, title: "나의 생일로 알아보는 소울카드"),
 
           Spacer(),
 
           Text.rich(
-            style: TextStyle(fontFamily: f2, fontWeight: .bold, fontSize: 14, color: Colors.white),
+            style: TextStyle(
+              fontFamily: f2,
+              fontWeight: .bold,
+              fontSize: 14,
+              color: Colors.white,
+            ),
             TextSpan(
               children: [
                 _y("소울 넘버"),
@@ -110,9 +115,22 @@ class _SoulScreenState extends State<SoulScreen> {
   }
 
   Widget datePicker() {
-    int year = date?.year ?? 1901;
-    int month = date?.month ?? 1;
-    int day = date?.day ?? 1;
+    DateTime tempDate = date ?? DateTime(1901, 1, 1);
+
+    void updateDate(StateSetter set, {int? y, int? m, int? d}) {
+      int year = y ?? tempDate.year;
+      int month = m ?? tempDate.month;
+      int day = d ?? tempDate.day;
+
+      final maxDay = appController.lastDate(DateTime(year, month));
+
+      if (maxDay < day) {
+        day = maxDay;
+      }
+
+      tempDate = DateTime(year, month, day);
+      set(() {});
+    }
 
     String error = "";
 
@@ -147,14 +165,13 @@ class _SoulScreenState extends State<SoulScreen> {
                             Expanded(
                               child: wheelList(
                                 List.generate(
-                                  appController.getYear(1900),
+                                  DateTime.now().year - 1900,
                                   (index) => index + 1901,
                                 ),
                                 (value) {
-                                  year = value;
-                                  set(() {});
+                                  updateDate(set, y: value);
                                 },
-                                year - 1901,
+                                tempDate.year - 1901,
                               ),
                             ),
                             SizedBox(width: 12),
@@ -162,23 +179,21 @@ class _SoulScreenState extends State<SoulScreen> {
                               child: wheelList(
                                 List.generate(12, (index) => index + 1),
                                 (value) {
-                                  month = value;
-                                  set(() {});
+                                  updateDate(set, m: value);
                                 },
-                                month - 1,
+                                tempDate.month - 1,
                               ),
                             ),
                             Expanded(
                               child: wheelList(
                                 List.generate(
-                                  appController.lastDate(DateTime(year, month)),
+                                  appController.lastDate(tempDate),
                                   (index) => index + 1,
                                 ),
                                 (value) {
-                                  day = value;
-                                  set(() {});
+                                  updateDate(set, d: value);
                                 },
-                                day - 1,
+                                tempDate.day - 1,
                               ),
                             ),
                           ],
@@ -204,15 +219,13 @@ class _SoulScreenState extends State<SoulScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          if (appController.isNowDay(
-                            DateTime(year, month, day),
-                          )) {
+                          if (appController.isOverNow(tempDate)) {
                             error = "생년월일은 오늘 날짜보다\n이전 날짜만 선택 가능합니다.";
                             set(() {});
                             return;
                           }
 
-                          date = DateTime(year, month, day);
+                          date = tempDate;
                           setState(() {});
                           Navigator.pop(context);
                         },

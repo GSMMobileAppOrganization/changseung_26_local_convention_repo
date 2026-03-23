@@ -32,7 +32,7 @@ class LogoWidget extends StatelessWidget {
         ),
 
         if (title != null)
-          title18W(size: 17, title!, align: .center, weight: .w800),
+          title18W(size: 17, title!, align: .center),
       ],
     );
   }

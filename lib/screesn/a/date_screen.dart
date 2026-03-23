@@ -23,7 +23,7 @@ class _DateScreenState extends State<DateScreen> {
       progress: 4,
       child: Column(
         children: [
-          SizedBox(height: 28),
+          SizedBox(height: 32),
 
           dateView(),
 
@@ -88,7 +88,7 @@ class _DateScreenState extends State<DateScreen> {
                 Expanded(
                   child: wheelList(
                     List.generate(
-                      appController.getYear(1900),
+                      DateTime.now().year - 1900,
                       (index) => index + 1 + 1900,
                     ),
                     (value) {

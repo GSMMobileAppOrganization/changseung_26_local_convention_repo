@@ -70,7 +70,7 @@ class InputScreen extends StatelessWidget {
                           : Colors.white.withAlpha(100),
                       borderRadius: progress! > index ? .circular(8) : null,
                     ),
-                    height: 8,
+                    height: 10,
                   ),
                 ),
               ),

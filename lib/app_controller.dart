@@ -87,18 +87,8 @@ class AppController {
     prefs.setInt(key, moon);
   }
 
-  int getYear(int year) => DateTime.now().year - year;
 
-  int getMonth(DateTime date) =>
-      isNowYear(date.year) ? DateTime.now().month : lastDate(date);
-
-  int getDay(DateTime date) => DateTime.now().year - date.year;
-
-  bool isNowMonth(DateTime date) => DateUtils.isSameMonth(DateTime.now(), date);
-
-  bool isNowYear(int year) => DateTime.now().year - year == 0;
-
-  bool isNowDay(DateTime date) =>
+  bool isOverNow(DateTime date) =>
       date.isAfter(DateTime.now().subtract(Duration(days: 1)));
 
   String dateFormat(String f, DateTime date) => DateFormat(f).format(date);
