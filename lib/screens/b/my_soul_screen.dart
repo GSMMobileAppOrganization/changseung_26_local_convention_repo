@@ -20,7 +20,7 @@ class _MySoulScreen1State extends State<MySoulScreen1> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       await Future.delayed(Duration(milliseconds: 1800));
-      appController.noAnimationGo(context, MySoulScreen2());
+      appController.goCustom(context, MySoulScreen2());
     });
 
     super.initState();

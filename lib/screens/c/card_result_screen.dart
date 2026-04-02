@@ -23,18 +23,21 @@ class CardResultScreen1 extends StatelessWidget {
 
           Spacer(flex: 3),
 
-          Hero(
-            tag: "t2",
-            child: Material(
-              color: Colors.transparent,
-              child: Column(
-                spacing: 12,
-                children: [
-                  cardWidget(appController.cardPath(card), 150),
-                  title18W(appController.cardFormat(card, ver2: true)),
-                ],
+          Column(
+            spacing: 12,
+            children: [
+              Hero(
+                tag: "t1",
+                child: cardWidget(appController.cardPath(card), 140),
               ),
-            ),
+              Hero(
+                tag: "t2",
+                child: Material(
+                  color: Colors.transparent,
+                  child: title18W(appController.cardFormat(card, ver2: true)),
+                ),
+              ),
+            ],
           ),
 
           Spacer(flex: 2),
@@ -42,7 +45,7 @@ class CardResultScreen1 extends StatelessWidget {
           SizedBox(
             width: 160,
             child: button1("결과 확인", () {
-              appController.noAnimationGo(context, CardResultScreen2(card));
+              appController.goCustom(context, CardResultScreen2(card));
             }, hasIcon: false),
           ),
 
@@ -67,29 +70,23 @@ class CardResultScreen2 extends StatelessWidget {
 
           LogoWidget(ver2: true, title: "카드풀이"),
           SizedBox(height: 36),
-
-          Hero(
-            tag: "t2",
-            flightShuttleBuilder:
-                (
-                  flightContext,
-                  animation,
-                  flightDirection,
-                  fromHeroContext,
-                  toHeroContext,
-                ) => FadeTransition(
-                  opacity: animation,
-                  child: toHeroContext.widget,
+          Material(
+            color: Colors.transparent,
+            child: Column(
+              spacing: 12,
+              children: [
+                Hero(
+                  tag: "t1",
+                  child: cardWidget(appController.cardPath(card), 100),
                 ),
-            child: Material(
-              color: Colors.transparent,
-              child: Column(
-                spacing: 12,
-                children: [
-                  cardWidget(appController.cardPath(card), 100),
-                  title18W(appController.cardFormat(card, ver2: true)),
-                ],
-              ),
+                Hero(
+                  tag: "t2",
+                  child: Material(
+                    color: Colors.transparent,
+                    child: title18W(appController.cardFormat(card, ver2: true)),
+                  ),
+                ),
+              ],
             ),
           ),
 

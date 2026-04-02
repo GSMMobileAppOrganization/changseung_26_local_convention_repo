@@ -54,7 +54,8 @@ class AppController {
     return list.where((e) => e.number == i).first;
   }
 
-  String cardFormat(CardModel card, {bool ver2 = false}) => ver2 ?  "${card.number}. ${card.name}":  "${card.number}번 ${card.name}";
+  String cardFormat(CardModel card, {bool ver2 = false}) =>
+      ver2 ? "${card.number}. ${card.name}" : "${card.number}번 ${card.name}";
 
   String cardPath(CardModel card) => "assets/images/tarot_cards/${card.image}";
 
@@ -120,7 +121,7 @@ class AppController {
     ),
   );
 
-  Future<void> noAnimationGo(
+  Future<void> goCustom(
     BuildContext context,
     Widget page, {
     Duration dur = const Duration(milliseconds: 800),
@@ -128,6 +129,8 @@ class AppController {
     context,
     PageRouteBuilder(
       transitionDuration: dur,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeTransition(opacity: animation, child: child),
       pageBuilder: (context, animation, secondaryAnimation) => page,
     ),
   );
