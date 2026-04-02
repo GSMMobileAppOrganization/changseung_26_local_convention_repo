@@ -1,0 +1,118 @@
+import 'package:daily_tarot_poc_app_13/main.dart';
+import 'package:daily_tarot_poc_app_13/widgets/background.dart';
+import 'package:daily_tarot_poc_app_13/widgets/logo_widget.dart';
+import 'package:daily_tarot_poc_app_13/widgets/widgets.dart';
+import 'package:flutter/material.dart';
+
+import '../../app_controller.dart';
+
+class MoonScreen extends StatefulWidget {
+  const MoonScreen({super.key});
+
+  @override
+  State<MoonScreen> createState() => _MoonScreenState();
+}
+
+class _MoonScreenState extends State<MoonScreen> {
+  List<(int, int, int)> list = [
+    (25, 750, 5500),
+    (50, 2600, 9900),
+    (75, 4750, 14000),
+    (100, 8000, 17000),
+    (200, 17000, 33000),
+    (300, 32000, 55000),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Background2(
+      child: Column(
+        children: [
+          backButton(context),
+
+          SizedBox(height: 8),
+
+          LogoWidget(title: "달 충전", ver2: true),
+
+          SizedBox(height: 24),
+
+          titleW("현재 보유중인 달", isF2: true, size: 17),
+
+          SizedBox(height: 8),
+
+          moonCount(),
+
+          SizedBox(height: 12),
+
+          ListView.separated(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            padding: .symmetric(horizontal: 18),
+            itemBuilder: (context, index) =>
+                moonItem(list[index].$1, list[index].$2, list[index].$3, index),
+            separatorBuilder: (context, index) =>
+                Container(color: Colors.white30, height: 1.2),
+            itemCount: list.length,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget moonItem(int count, int discount, int price, int index) => ListTile(
+    contentPadding: .zero,
+    onTap: () {
+      appController.showSnack(context, "달 $count개가 충전되었습니다.");
+      appController.addMoon(count);
+      setState(() {});
+    },
+    leading: moon2(index),
+    title: Column(
+      crossAxisAlignment: .start,
+      children: [
+        titleW(
+          appController.numberFormat("달 #개", count),
+          size: 18,
+          isF2: true,
+          weight: .w500,
+        ),
+        titleW(
+          appController.numberFormat("약 #,###원 할인", discount),
+          color: yellow,
+          size: 13,
+          isF2: true,
+        ),
+      ],
+    ),
+    trailing: titleW(
+      appController.numberFormat("#,###원", price),
+      weight: .w500,
+      size: 18,
+      isF2: true,
+    ),
+  );
+
+  Widget moon2(int index) => Stack(
+    clipBehavior: .none,
+    children: [
+      if (index >= 4) Positioned(bottom: 0, right: 0, child: moon(12)),
+
+      if (index >= 2) Positioned(top: -2, right: -4, child: moon(32)),
+      moon(46),
+    ],
+  );
+
+  Widget moonCount() => Row(
+    spacing: 2,
+    mainAxisAlignment: .center,
+    children: [
+      moon(36),
+      GestureDetector(
+        onTap: () {
+          appController.go(context, MoonScreen());
+        },
+        child: titleW(appController.moon.toString(), isF2: true, size: 20),
+      ),
+    ],
+  );
+}
